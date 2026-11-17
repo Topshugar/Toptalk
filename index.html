@@ -167,3 +167,87 @@
     <a class="btn-outline" href="https://topshugar.github.io/TOPSHUGAR/" target="_blank" rel="noopener">Get My @topshugar.site Email</a>
   </div>
 </div>
+<!-- Main application -->
+<div id="mainApp" style="display:none;width:100%;flex-direction:column;align-items:center">
+<div class="header">
+  <div class="logo-brand">
+    <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="ttGrad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF8AC2"/><stop offset="55%" stop-color="#C86DD7"/><stop offset="100%" stop-color="#6D4AC8"/></linearGradient></defs><path d="M50 4 C22 4 6 22 6 44 C6 66 22 84 46 84 L52 84 C52 92 50 98 46 104 C62 102 76 92 84 76 C94 68 96 56 96 44 C96 22 78 4 50 4 Z" fill="url(#ttGrad2)"/><path d="M50 28 C45 20 32 20 30 30 C28 40 38 48 50 58 C62 48 72 40 70 30 C68 20 55 20 50 28 Z" fill="#FFD6E8"/><path d="M80 14 L81.5 19 L86 20.5 L81.5 22 L80 27 L78.5 22 L74 20.5 L78.5 19 Z" fill="#FFD700"/></svg>
+    <div class="logo-text"><div class="logo-name">TOP<span>TALK</span></div><div class="logo-tag">FALL FOR HOW THEY TALK</div></div>
+  </div>
+  <!-- *** EDIT 1 - EARN BUTTON ADDED HERE *** -->
+  <div style="display:flex;gap:8px"><a href="earn.html" style="background:#d63384;color:#fff;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:700;text-decoration:none">💰 Earn</a><button class="header-btn" onclick="switchTab('matches')">Matches</button><button class="btn-ghost" onclick="doLogout()">Log Out</button></div>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>Welcome back, <em id="heroName">Top</em><br>Fall for how they <em>talk.</em></h1>
+    <p>TopTalk is a private site for singles. Post your talk. Match with people who share your vibe. Chat. Then fall.</p>
+    <div class="hero-badges"><span class="badge">Talk First</span><span class="badge">Match Second</span><span class="badge">Love Later</span></div>
+    <!-- *** EDIT 2 - EARN BUTTON ADDED HERE *** -->
+    <a href="earn.html" style="display:block;background:#d63384;color:#fff;padding:13px;border-radius:12px;font-weight:800;font-size:14px;margin-top:14px;text-decoration:none;text-align:center">💰 Earn Sats → Buy Airtime</a>
+  </div>
+  <div class="tabs">
+    <button class="tab active" id="tab-feed" onclick="switchTab('feed')">Talk<small>Feed</small></button>
+    <button class="tab" id="tab-discover" onclick="switchTab('discover')">Discover<small>Vibe Match</small></button>
+    <button class="tab" id="tab-matches" onclick="switchTab('matches')">Matches<small id="matchCount">0</small></button>
+    <button class="tab" id="tab-profile" onclick="switchTab('profile')">Me<small>Profile</small></button>
+  </div>
+  <div id="page-feed">
+    <div class="card">
+      <div class="label">Share Your Talk</div>
+      <div style="display:flex;gap:10px;margin-top:10px"><div class="avatar" id="composerAvatar">T</div><textarea id="postText" placeholder="Say something real. What is on your mind?" maxlength="280" oninput="updateChar()"></textarea></div>
+      <div class="composer-foot"><span class="char" id="charCount">280 left</span><button class="btn-post" id="postBtn" onclick="createPost()" disabled>Post Talk</button></div>
+    </div>
+    <div id="feed"></div>
+  </div>
+  <div id="page-discover" style="display:none">
+    <div class="card"><div class="label">Your Vibe</div><p style="font-size:14px;line-height:1.6;margin-top:8px">Answer these three questions to be matched accurately.</p>
+      <div class="edit-grid" style="grid-template-columns:1fr">
+        <select id="vibe1"><option value="funny">Funny — I make people laugh</option><option value="serious">Serious — Deep conversations</option><option value="romantic">Romantic — Soft and sweet</option></select>
+        <select id="vibe2"><option value="text">Text — I love chatting</option><option value="call">Call — Voice notes and calls</option><option value="meet">Meet — Let us meet soon</option></select>
+        <select id="vibe3"><option value="church">Faith-first</option><option value="hustle">Hustle-first</option><option value="party">Fun-first</option></select>
+      </div>
+      <button class="btn-primary" onclick="saveVibe()">Save My Vibe and Find Matches</button>
+    </div>
+    <div id="discoverList"></div>
+                                                                                                                                                             </div>
+                                                                                                                                                               <div id="page-matches" style="display:none">
+    <div class="card"><div class="label">Your Matches</div><p style="font-size:14px;color:var(--muted);margin-top:6px;line-height:1.5">When you like someone's talk, you match. Then chat privately here.</p></div>
+    <div id="matchesList" style="padding:0 12px"></div>
+    <div id="chatArea" style="display:none;padding:0 12px">
+      <div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><b id="chatWith">Chat</b><button class="btn-ghost" onclick="closeChat()">Close</button></div>
+      <div class="chat-box" id="chatBox" style="margin-top:12px"></div>
+      <div class="chat-input"><input id="chatInput" placeholder="Say something kind." onkeydown="if(event.key==='Enter') sendChat()" /><button class="btn-dark" onclick="sendChat()">Send</button></div>
+      <p style="font-size:12px;color:var(--muted);margin-top:8px">Safety: Never send money or your home address.</p>
+      </div>
+    </div>
+  </div>
+  <div id="page-profile" style="display:none">
+    <div class="card">
+      <div class="profile-row"><div class="avatar" id="myAvatar">T</div><div><b id="myName">Top User</b> <span id="myHandle">@topuser • 22 • Lagos</span><p class="bio" id="myBio">Funny, loyal, God-fearing.</p><div class="vibe-tags" id="myVibeTags"></div><p style="font-size:12px;color:var(--muted);margin-top:8px" id="myEmail"></p></div></div>
+      <div class="edit-grid">
+        <input id="editName" placeholder="First name" maxlength="20" />
+        <input id="editAge" type="number" placeholder="Age" min="18" max="80" />
+        <select id="editCity"><option>Lagos</option><option>Abuja</option><option>Port Harcourt</option><option>Ibadan</option><option>Enugu</option><option>Kano</option><option>Other</option></select>
+        <select id="editLooking"><option value="Looking for love">Looking for love</option><option value="Looking for friends">Looking for friends</option><option value="Just talking">Just talking</option></select>
+      </div>
+      <input class="full-input" id="editBio" placeholder="Your bio — what makes your talk special?" maxlength="90" />
+      <button class="btn-primary" onclick="saveProfile()">Save My Profile</button>
+    </div>
+    <div class="safety"><b>TopTalk Safety:</b> Be 18 or over. No inappropriate images. No requests for money. Report anyone who breaks these rules.</div>
+  </div>
+</div>
+<footer>© 2026 TopTalk by TOPSHUGAR • Talk First. Match Second. Love Later.</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // *** YOUR ORIGINAL SCRIPT - NO CHANGES NEEDED HERE ***
+  // Keep your exact original <script> from your current file, from:
+  //   const ALLOWED_DOMAIN = "@topshugar.site";
+  // all the way to the end of sendChat() function.
+  // Paste it here, then close with:
+</script>
+</body>
+</html>
