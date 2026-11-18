@@ -1,7 +1,7 @@
-// app.js - Feed, Matches, Chat
+// app.js - Feed, Favourites, Matches, Chat - British English
 let posts = JSON.parse(localStorage.getItem("toptalk_posts_v2")||"null") || [
-  {id:1, name:"Ada", handle:"ada_lagos", age:23, city:"Lagos", text:"Make me laugh on a voice note and I am yours.", likes:42, liked:false, comments:[]},
-  {id:2, name:"Chidi", handle:"chidi_abj", age:25, city:"Abuja", text:"Good conversation is more attractive than good looks.", likes:38, liked:false, comments:[]}
+  {id:1, name:"Ada", handle:"ada_lagos", age:23, city:"Lagos", text:"I do not care about your car. Make me laugh on a voice note and I am yours.", likes:42, liked:false, comments:[]},
+  {id:2, name:"Chidi", handle:"chidi_abj", age:25, city:"Abuja", text:"Unpopular opinion: Good conversation is more attractive than good looks. Looks fade. Talk stays.", likes:38, liked:false, comments:[]}
 ];
 let matches = JSON.parse(localStorage.getItem("toptalk_matches_v2")||"[]");
 let chats = JSON.parse(localStorage.getItem("toptalk_chats_v2")||"{}");
@@ -27,7 +27,8 @@ function switchTab(p){
 function renderProfile(){
   if(!profile) return;
   document.getElementById("myName").textContent = profile.name;
-  document.getElementById("myEmail").textContent = profile.email;
+  document.getElementById("myEmail").textContent = profile.email + " • Member since " + new Date(profile.created_at).toLocaleDateString("en-GB");
+  document.getElementById("myBio").textContent = profile.bio;
   document.getElementById("editBio").value = profile.bio||"";
 }
 function saveProfile(){
@@ -49,27 +50,27 @@ function createPost(){
 }
 function toggleLike(id){ const p=posts.find(x=>x.id===id); p.liked=!p.liked; p.likes+=p.liked?1:-1; saveAll(); renderFeed(); }
 function renderFeed(){
-  document.getElementById("feed").innerHTML = posts.map(p=>`<div class="card"><b>${esc(p.name)}</b> @${esc(p.handle)} • ${p.age} • ${esc(p.city)}<p>${esc(p.text)}</p><button onclick="toggleLike(${p.id})">Like ${p.likes}</button> <button onclick="likePerson(${p.id})">Like Their Vibe</button></div>`).join("");
+  document.getElementById("feed").innerHTML = posts.map(p=>`<div class="card"><b>${esc(p.name)}</b> @${esc(p.handle)} • ${p.age} • ${esc(p.city)}<p>${esc(p.text)}</p><button onclick="toggleLike(${p.id})">${p.liked?"Favourited":"Favourite"} ${p.likes}</button> <button onclick="likePerson(${p.id})">Like Their Vibe</button></div>`).join("");
 }
 function renderDiscover(){
   document.getElementById("discoverList").innerHTML = posts.map(p=>`<div class="card"><b>${esc(p.name)}</b><p>${esc(p.text)}</p><button class="btn-primary" onclick="likePerson(${p.id})">Match</button></div>`).join("");
 }
 function likePerson(id){
   const p=posts.find(x=>x.id===id);
-  if(matches.find(m=>m.handle===p.handle)) return toast("Already matched.");
+  if(matches.find(m=>m.handle===p.handle)) return toast("Already matched. See Matches.");
   matches.push({name:p.name, handle:p.handle, age:p.age, city:p.city, text:p.text});
-  saveAll(); document.getElementById("matchCount").textContent=matches.length; toast("Matched with "+p.name);
+  saveAll(); document.getElementById("matchCount").textContent=matches.length; toast("Matched with "+p.name+". See Matches.");
 }
 function renderMatches(){
   document.getElementById("matchCount").textContent=matches.length;
   const el=document.getElementById("matchesList");
-  if(!matches.length){ el.innerHTML="<p>No matches yet.</p>"; return; }
+  if(!matches.length){ el.innerHTML="<p>No matches yet. Go to Discover, like someone's vibe, and you will match.</p>"; return; }
   el.innerHTML=matches.map((m,i)=>`<div class="card"><b>${esc(m.name)}</b> • ${m.age} • ${esc(m.city)}<br><button class="btn-dark" onclick="openChat(${i})">Chat</button></div>`).join("");
 }
 function openChat(i){ activeChat=i; document.getElementById("chatArea").style.display="block"; document.getElementById("chatWith").textContent="Chat with "+matches[i].name; renderChat(); }
 function renderChat(){
   if(activeChat===null) return;
-  const m=matches[activeChat]; const list=chats[m.handle]||[{from:"them", text:"Hello. I liked your talk."}]; chats[m.handle]=list; saveAll();
+  const m=matches[activeChat]; const list=chats[m.handle]||[{from:"them", text:"Hello. I liked your talk. You seem genuine."}]; chats[m.handle]=list; saveAll();
   document.getElementById("chatBox").innerHTML=list.map(x=>`<div class="msg ${x.from==="me"?"me":"them"}">${esc(x.text)}</div>`).join("");
 }
 function sendChat(){
