@@ -1,3 +1,7 @@
+/* TopTalk styles - British English site - en-GB */
+/* Colours, layout and behaviour for TopTalk - Talk First, Match Second, Love Later */
+/* Note: CSS properties like 'color' and 'text-align: center' must stay in American spelling - that is the web standard. All visible text is British. */
+
 :root{ --bg:#fff7fb; --card:#fff; --text:#1f1f1f; --muted:#6b6b6b; --border:#f0d0e0; --pink:#d63384; --pink-dark:#a61e66; --purple:#7b5aa6; --green:#1a9e62; }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:0 0 calc(20px + env(safe-area-inset-bottom,0px))}
