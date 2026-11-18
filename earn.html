@@ -3,55 +3,99 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>TopTalk — Earn Mode</title>
+<title>TopTalk — Earn Sats</title>
+<link rel="stylesheet" href="style.css">
 <style>
-  :root{ --bg:#fff7fb; --card:#fff; --text:#1f1f1f; --muted:#6b6b6b; --border:#f0d0e0; --pink:#d63384; --purple:#7b5aa6; }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--text);padding:0 0 20px;display:flex;flex-direction:column;align-items:center}
-  .header{width:100%;max-width:680px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:#fff}
-  .logo{font-size:22px;font-weight:900;color:var(--pink)} .logo span{color:var(--text)}
-  .wrap{width:100%;max-width:680px;padding:14px}
-  .card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:16px;margin-bottom:12px}
-  .big{font-size:28px;font-weight:900;color:var(--pink)}
-  button{width:100%;padding:13px;border:none;border-radius:12px;background:var(--pink);color:#fff;font-weight:800;font-size:15px;margin:6px 0}
-  .btn-green{background:#1a9e62}.btn-orange{background:#ff9800}.btn-outline{background:#fff;color:var(--text);border:1px solid var(--border)}
-  input,select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);font-size:15px;margin:6px 0;background:#fff}
-  table{width:100%;font-size:14px;border-collapse:collapse} td,th{padding:8px 0;border-bottom:1px solid #f5f5f5;text-align:left}
-  .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-  small{color:var(--muted)} a{color:var(--pink)}
-  #toast{background:#000;color:#fff;padding:10px;border-radius:999px;text-align:center;margin-top:10px;display:none}
+.earn-wrap{width:100%;max-width:420px;padding:20px 16px;margin:0 auto}
+.earn-card{background:#fff;border:1px solid #f0d0e0;border-radius:20px;padding:20px;margin-top:16px;box-shadow:0 10px 30px rgba(214,51,132,.08);text-align:center}
+.earn-balance{font-size:42px;font-weight:900;color:#d63384;margin:8px 0}
+.earn-small{font-size:13px;color:#6b6b6b;line-height:1.6}
+.earn-task{display:flex;justify-content:space-between;align-items:center;background:#fff7fb;border:1px solid #f0d0e0;border-radius:14px;padding:14px;margin-top:12px;text-align:left}
+.earn-task b{font-size:15px}
+.earn-task span{font-size:13px;color:#6b6b6b}
+.earn-task button{background:#1f1f1f;color:#fff;padding:9px 14px;border-radius:999px;font-weight:700;font-size:13px;white-space:nowrap}
 </style>
 </head>
 <body>
-<div class="header"><div class="logo">TOP<span>TALK</span> <small style="font-size:11px">EARN MODE</small></div><a href="index.html">← Back to Talk</a></div>
-<div class="wrap">
-<div class="card">
-  <b>👋 Enter your phone to start earning</b><br><small>Your balance is saved to this number. Use your own number.</small>
-  <input id="phoneInput" placeholder="e.g. 0816..." inputmode="numeric">
-  <button onclick="login()">Start Earning →</button><small id="loginMsg"></small>
+
+<div class="earn-wrap">
+  <div style="text-align:center">
+    <div style="font-size:28px;font-weight:900;color:#d63384">TOP<span style="color:#1f1f1f">TALK</span></div>
+    <div style="font-size:9px;letter-spacing:3.5px;color:#7b5aa6;font-weight:800">FALL FOR HOW THEY TALK</div>
+  </div>
+
+  <div class="earn-card">
+    <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#6b6b6b;font-weight:700">Your Balance</div>
+    <div class="earn-balance" id="satsBalance">0 sats</div>
+    <p class="earn-small">Earn sats by talking. Favourite, reply, and match.<br>Then exchange your sats for airtime.</p>
+    <a href="index.html" class="btn-primary" style="text-decoration:none">Back to TopTalk</a>
+    <button class="btn-outline" onclick="claimAirtime()">Exchange Sats for Airtime</button>
+    <p class="earn-small" id="earnMsg" style="margin-top:10px"></p>
+  </div>
+
+  <div class="earn-card" style="text-align:left">
+    <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#6b6b6b;font-weight:700">Today's Tasks — Favourite & Earn</div>
+
+    <div class="earn-task">
+      <div><b>Post a Talk</b><br><span>Share something real. Be kind.</span></div>
+      <button onclick="doEarnTask('post', 50)">+50 sats</button>
+    </div>
+
+    <div class="earn-task">
+      <div><b>Favourite 3 Talks</b><br><span>Show love to other members.</span></div>
+      <button onclick="doEarnTask('favourite', 30)">+30 sats</button>
+    </div>
+
+    <div class="earn-task">
+      <div><b>Reply to a Talk</b><br><span>Keep the conversation going.</span></div>
+      <button onclick="doEarnTask('reply', 30)">+30 sats</button>
+    </div>
+
+    <div class="earn-task">
+      <div><b>Match with Someone</b><br><span>Like their vibe and match.</span></div>
+      <button onclick="doEarnTask('match', 100)">+100 sats</button>
+    </div>
+
+    <div class="earn-task">
+      <div><b>Complete Your Profile</b><br><span>Add your bio and organise your vibe.</span></div>
+      <button onclick="doEarnTask('profile', 40)">+40 sats</button>
+    </div>
+
+    <p class="earn-small" style="margin-top:14px;text-align:center">TopTalk Safety: Be 18 or over. Be respectful. No requests for money. No inappropriate images. Report anyone who breaks these rules.</p>
+    <p class="earn-small" style="text-align:center">Balance updated: <span id="earnDate"></span></p>
+  </div>
 </div>
-<div class="card">
-  <b>EARN MODE: ON</b><p>Your Balance: <span class="big" id="bal">0</span> sats</p><p>= ₦<span id="naira">0</span> <small>• 1 sat = ₦0.40 (test rate)</small></p>
-  <table><tr><th>Source</th><th>Today</th></tr><tr><td>⛏️ Mining</td><td id="t-min">0</td></tr><tr><td>📺 Ads Watched</td><td id="t-ads">0</td></tr><tr><td>✅ Tasks Done</td><td id="t-task">0</td></tr><tr><td><b>Total</b></td><td><b id="t-total">0</b></td></tr></table>
-  <small>History:</small><div id="history" style="font-size:13px;color:#6b6b6b;margin-top:6px">No history yet.</div>
-</div>
-<div class="card"><b>⛏️ Mining: <span id="mineMode">LOW Mode</span></b><br><small>Hashrate: <span id="hash">2 MH/s</span></small><select id="mineSelect" onchange="setMine()"><option value="low">Low - 2 sats/claim</option><option value="med">Medium - 5 sats/claim</option><option value="high">High - 10 sats/claim</option></select><button onclick="claimMining()">⛏️ Claim Mining Sats</button></div>
-<div class="card"><b>📺 Watch Ad, Earn Sats</b><br><small>15 sec Ad = +5 sats</small><p>You have watched <span id="adsCount">0</span> / 10 ads today</p><button class="btn-green" onclick="watchAd()">▶ Watch Ad - Earn +5 sats</button></div>
-<div class="card"><b>✅ Do Task, Earn Sats</b><br><br><div class="row"><span>Follow TOPTALK on X<br><small>+50 sats</small></span><button style="width:90px" onclick="doTask('follow_x')">Do It</button></div><div class="row"><span>Test new app for 2 mins<br><small>+80 sats</small></span><button style="width:90px" onclick="doTask('test_app')">Do It</button></div><div class="row"><span>Invite 1 friend<br><small>+100 sats</small></span><button style="width:90px" onclick="doTask('invite_friend')">Share</button></div></div>
-<div class="card"><b>💸 Withdraw Sats</b><br><small>Balance: <span id="bal2">0</span> sats • Minimum: 500 sats</small><br><br><select id="withdrawTo" onchange="toggleAirtime()"><option value="wallet">My TOPTALK Wallet</option><option value="btc">My Bitcoin Wallet</option><option value="airtime">Buy Airtime</option></select><div id="btcBox" style="display:none"><input id="btcAddr" placeholder="Paste Bitcoin address"></div><div id="airtimeBox" style="display:none"><input id="wPhone" placeholder="Airtime number - leave empty to use login number"><select id="wNetwork"><option>MTN</option><option>GLO</option><option>AIRTEL</option><option>9MOBILE</option></select><p><small id="airtimePreview">0 sats = ₦0</small></p></div><button class="btn-orange" onclick="withdraw()">Withdraw</button><div id="toast"></div></div>
-</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-const API='https://toptalk-backend.onrender.com';
-let myPhone=localStorage.getItem('toptalk_phone')||''; let balance=0;
-if(myPhone) document.getElementById('phoneInput').value=myPhone;
-function showToast(m){let t=document.getElementById('toast');t.style.display='block';t.innerText=m;setTimeout(()=>t.style.display='none',5000);}
-async function login(){let p=document.getElementById('phoneInput').value.trim(); if(p.length<10){document.getElementById('loginMsg').innerText='Enter valid phone';return;} myPhone=p; localStorage.setItem('toptalk_phone',p); document.getElementById('loginMsg').innerText='Logged in as '+p; await refreshBalance();}
-async function refreshBalance(){if(!myPhone) return showToast('Enter phone first'); try{const r=await fetch(API+'/balance?phone='+encodeURIComponent(myPhone)); const d=await r.json(); if(d.status=='success'){balance=d.balance; document.getElementById('bal').innerText=balance; document.getElementById('bal2').innerText=balance; document.getElementById('naira').innerText=d.naira; document.getElementById('t-total').innerText=balance; document.getElementById('adsCount').innerText=d.adsToday; document.getElementById('airtimePreview').innerText=balance+' sats = ₦'+d.naira+' Airtime'; if(d.history&&d.history.length){document.getElementById('history').innerHTML=d.history.map(h=>`${h.source}: ${h.amount} • ${new Date(h.time).toLocaleTimeString()}`).join('<br>');}}else showToast(d.message);}catch(e){showToast('Error: '+e.message);}}
-function setMine(){let v=document.getElementById('mineSelect').value; document.getElementById('mineMode').innerText=v.toUpperCase()+' Mode'; document.getElementById('hash').innerText=v=='low'?'2 MH/s':v=='med'?'5 MH/s':'10 MH/s';}
-async function claimMining(){if(!myPhone) return showToast('Enter phone'); let mode=document.getElementById('mineSelect').value; const r=await fetch(API+'/earn/mining',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:myPhone,mode})}); const d=await r.json(); showToast(d.message); await refreshBalance();}
-async function watchAd(){if(!myPhone) return showToast('Enter phone'); showToast('Playing ad...'); setTimeout(async()=>{const r=await fetch(API+'/earn/ad',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:myPhone})}); const d=await r.json(); showToast(d.message); await refreshBalance();},1500);}
-async function doTask(id){if(!myPhone) return showToast('Enter phone'); const r=await fetch(API+'/earn/task',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:myPhone,taskId:id})}); const d=await r.json(); showToast(d.message); await refreshBalance();}
-function toggleAirtime(){let v=document.getElementById('withdrawTo').value; document.getElementById('btcBox').style.display=v=='btc'?'block':'none'; document.getElementById('airtimeBox').style.display=v=='airtime'?'block':'none';}
-async function withdraw(){if(!myPhone) return showToast('Enter phone'); if(balance<500) return showToast('Min 500 sats. You have '+balance); let to=document.getElementById('withdrawTo').value; let payload={phone:myPhone,type:to}; if(to=='btc') payload.btcAddress=document.getElementById('btcAddr').value; if(to=='airtime'){payload.airtimePhone=document.getElementById('wPhone').value.trim()||myPhone; payload.network=document.getElementById('wNetwork').value;} const r=await fetch(API+'/withdraw',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); const d=await r.json(); showToast(d.message); await refreshBalance();}
-toggleAirtime(); if(myPhone) refreshBalance();
-</script></body></html>
+let sats = parseInt(localStorage.getItem("toptalk_sats") || "0");
+function renderSats(){
+  document.getElementById("satsBalance").textContent = sats.toLocaleString("en-GB") + " sats";
+  document.getElementById("earnDate").textContent = new Date().toLocaleDateString("en-GB", { day:"2-digit", month:"long", year:"numeric" });
+}
+function toast(m){
+  const el=document.getElementById("toast");
+  el.textContent=m; el.style.display="block";
+  setTimeout(()=>el.style.display="none",2200);
+}
+function doEarnTask(type, amount){
+  sats += amount;
+  localStorage.setItem("toptalk_sats", String(sats));
+  renderSats();
+  toast("Well done! +" + amount + " sats added to your balance.");
+  document.getElementById("earnMsg").textContent = "You earned " + amount + " sats for " + type + ". Keep talking!";
+}
+function claimAirtime(){
+  if(sats < 500){
+    document.getElementById("earnMsg").textContent = "You need at least 500 sats to exchange for airtime. You have " + sats.toLocaleString("en-GB") + " sats. Keep talking!";
+    toast("You need 500 sats to exchange.");
+    return;
+  }
+  document.getElementById("earnMsg").textContent = "Request received. Our team will organise your airtime shortly. Thank you for being a lovely member of TopTalk.";
+  toast("Airtime request received.");
+}
+renderSats();
+</script>
+</body>
+</html>
