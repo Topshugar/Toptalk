@@ -2,127 +2,16 @@
 <html lang="en-GB">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<meta name="theme-color" content="#d63384" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>TopTalk — Fall For How They Talk</title>
-<style>
-  :root{ --bg:#fff7fb; --card:#fff; --text:#1f1f1f; --muted:#6b6b6b; --border:#f0d0e0; --pink:#d63384; --pink-dark:#a61e66; --purple:#7b5aa6; --green:#1a9e62; }
-  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:0 0 calc(20px + env(safe-area-inset-bottom,0px))}
-  button{cursor:pointer;border:none;font-family:inherit;touch-action:manipulation}
-  button:active{transform:scale(.97)}
-  input,textarea,select{font-family:inherit;outline:none}
-  a{color:inherit}
-  .header{width:100%;max-width:680px;position:sticky;top:0;z-index:30;background:rgba(255,247,251,.94);backdrop-filter:blur(12px);padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-  .logo-brand{display:flex;align-items:center;gap:10px}
-  .logo-icon{width:44px;height:44px;flex-shrink:0;filter:drop-shadow(0 4px 10px rgba(214,51,132,.35))}
-  .logo-text{line-height:1}
-  .logo-name{font-size:24px;font-weight:900;letter-spacing:1px;color:var(--pink)}
-  .logo-name span{color:var(--text)}
-  .logo-tag{font-size:9px;letter-spacing:3.5px;color:var(--purple);font-weight:800;margin-top:3px}
-  .header-btn{background:var(--text);color:#fff;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:700}
-  .wrap{width:100%;max-width:680px}
-  .auth-wrap{width:100%;max-width:420px;padding:20px 16px}
-  .auth-logo{text-align:center;margin:16px 0 8px}
-  .auth-logo svg{width:76px;height:76px;filter:drop-shadow(0 8px 20px rgba(214,51,132,.35))}
-  .auth-title{text-align:center;font-size:28px;font-weight:900;line-height:1.1}
-  .auth-title em{color:var(--pink);font-style:normal}
-  .auth-sub{text-align:center;font-size:14px;color:var(--muted);line-height:1.6;margin-top:8px}
-  .auth-card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:18px;margin-top:16px;box-shadow:0 10px 30px rgba(214,51,132,.08)}
-  .auth-tabs{display:flex;background:#f6f0f5;border-radius:999px;padding:4px;margin-bottom:14px}
-  .auth-tab{flex:1;padding:11px;border-radius:999px;font-weight:800;font-size:14px;background:transparent;color:var(--muted)}
-  .auth-tab.active{background:var(--pink);color:#fff}
-  .auth-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:12px 0 6px}
-  .auth-input{width:100%;padding:13px 14px;border:1px solid var(--border);border-radius:12px;font-size:15px;background:#fff}
-  .auth-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .btn-primary{background:var(--pink);color:#fff;padding:14px;width:100%;border-radius:12px;font-weight:800;font-size:15px;margin-top:16px;min-height:50px;text-align:center;text-decoration:none;display:block}
-  .btn-outline{display:block;text-align:center;background:#fff;color:var(--text);padding:13px;width:100%;border-radius:12px;font-weight:800;font-size:14px;margin-top:10px;border:1px solid var(--border);text-decoration:none}
-  .auth-note{font-size:12.5px;color:var(--muted);line-height:1.6;text-align:center;margin-top:12px}
-  .auth-error{background:#ffe6e6;color:#a61e2e;padding:10px 12px;border-radius:10px;font-size:13.5px;line-height:1.5;display:none;margin-bottom:10px;font-weight:600}
-  .domain-box{background:#f7f0ff;border:1px solid #e6d5ff;border-radius:14px;padding:14px;font-size:13px;line-height:1.6;color:#3a2a5a;margin-top:12px}
-  .domain-box b{font-size:14px}
-  .domain-link{color:var(--pink-dark);font-weight:800;word-break:break-all}
-  .hero{padding:18px 16px 14px;text-align:center}
-  .hero h1{font-size:26px;line-height:1.15}
-  .hero h1 em{color:var(--pink);font-style:normal}
-  .hero p{font-size:14px;color:var(--muted);line-height:1.6;margin-top:8px}
-  .hero-badges{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
-  .badge{background:#ffe6f1;color:var(--pink-dark);padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700}
-  .tabs{display:flex;gap:6px;padding:0 16px 12px;position:sticky;top:58px;z-index:20;background:var(--bg);padding-top:6px}
-  .tab{flex:1;padding:12px 6px;border-radius:999px;font-size:13.5px;font-weight:700;background:#fff;border:1px solid var(--border);color:var(--muted)}
-  .tab.active{background:var(--pink);color:#fff;border-color:var(--pink)}
-  .tab small{display:block;font-size:10px;font-weight:600;margin-top:2px;opacity:.8}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;margin:0 12px 12px;box-shadow:0 6px 20px rgba(214,51,132,.06)}
-  .label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:700}
-  .avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#ff8ac2,#7b5aa6);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;flex-shrink:0}
-  .avatar.small{width:38px;height:38px;font-size:15px}
-  .avatar.mini{width:32px;height:32px;font-size:13px}
-  .profile-row{display:flex;gap:12px;align-items:flex-start}
-  .profile-row b{font-size:16px}
-  .profile-row span{color:var(--muted);font-size:14px}
-  .bio{font-size:14px;line-height:1.5;color:var(--muted);margin-top:6px}
-  .vibe-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-  .vibe-tag{background:#f7f0ff;color:var(--purple);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700}
-  .vibe-tag.pink{background:#ffe6f1;color:var(--pink-dark)}
-  .edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-  .edit-grid input,.edit-grid select,.full-input{width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;font-size:14px;background:#fff}
-  .full-input{margin-top:8px}
-  .btn-dark{background:var(--text);color:#fff;padding:11px 16px;border-radius:999px;font-weight:700;font-size:13px}
-  .btn-ghost{background:#f6f6f6;color:var(--text);padding:11px 16px;border-radius:999px;font-weight:700;font-size:13px;border:1px solid #eee}
-  textarea{width:100%;border:1px solid var(--border);border-radius:12px;padding:12px;font-size:15px;resize:none;line-height:1.5;min-height:72px;background:#fff}
-  .composer-foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
-  .char{font-size:12.5px;color:var(--muted);font-weight:600}
-  .btn-post{background:var(--pink);color:#fff;padding:10px 20px;border-radius:999px;font-weight:800;font-size:14px}
-  .btn-post:disabled{opacity:.5}
-  .post{padding:0}
-  .post-head{display:flex;gap:10px;align-items:center}
-  .post-head b{font-size:15px}
-  .post-head small{color:var(--muted);font-size:13px}
-  .vibe-score{margin-left:auto;background:var(--pink);color:#fff;font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;white-space:nowrap}
-  .post-text{font-size:15px;line-height:1.6;margin-top:10px;white-space:pre-wrap;word-break:break-word}
-  .post-actions{display:flex;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid #f5f5f5}
-  .action{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);font-weight:700;padding:6px 8px;border-radius:999px;background:none}
-  .action.liked{color:var(--pink)}
-  .action.matched{color:var(--green)}
-  .comments{margin-top:12px;background:#fff7fb;border-radius:12px;padding:10px;display:none}
-  .comments.open{display:block}
-  .comment{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid #f0e0e8}
-  .comment:last-child{border:none}
-  .comment-body{flex:1;font-size:14px;line-height:1.4}
-  .comment-body small{color:var(--muted)}
-  .comment-row{display:flex;gap:8px;margin-top:8px}
-  .comment-row input{flex:1;padding:10px 12px;border:1px solid var(--border);border-radius:999px;font-size:14px}
-  .btn-reply{background:var(--text);color:#fff;padding:9px 14px;border-radius:999px;font-size:13px;font-weight:700}
-  .match-card{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid var(--border);border-radius:14px;margin-bottom:10px;background:#fff}
-  .match-info{flex:1;min-width:0}
-  .match-info b{font-size:15px}
-  .match-info p{font-size:13px;color:var(--muted);margin-top:2px;line-height:1.4}
-  .match-pct{font-size:22px;font-weight:900;color:var(--pink);text-align:center}
-  .match-pct small{display:block;font-size:10px;color:var(--muted);font-weight:600}
-  .chat-box{background:#fff;border:1px solid var(--border);border-radius:14px;padding:12px;max-height:320px;overflow-y:auto}
-  .msg{max-width:80%;padding:10px 12px;border-radius:16px;font-size:14px;line-height:1.4;margin-bottom:8px}
-  .msg.me{background:var(--pink);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
-  .msg.them{background:#f1f1f1;color:var(--text);border-bottom-left-radius:4px}
-  .msg small{display:block;font-size:11px;opacity:.7;margin-top:4px}
-  .chat-input{display:flex;gap:8px;margin-top:10px}
-  .chat-input input{flex:1;padding:12px;border:1px solid var(--border);border-radius:999px;font-size:14px}
-  .empty{text-align:center;padding:28px 12px;color:var(--muted);font-size:14px;line-height:1.6}
-  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#000;color:#fff;padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;z-index:99;display:none;white-space:nowrap}
-  footer{text-align:center;font-size:12.5px;color:#999;padding:16px}
-  .safety{background:#fff8e1;border:1px solid #ffe9a8;border-radius:12px;padding:12px;font-size:13px;line-height:1.6;color:#5a4a00;margin:0 12px 12px}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Authentication -->
-<div id="authPage" class="auth-wrap">
-  <div class="auth-logo">
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="ttGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF8AC2"/><stop offset="55%" stop-color="#C86DD7"/><stop offset="100%" stop-color="#6D4AC8"/></linearGradient></defs><path d="M50 4 C22 4 6 22 6 44 C6 66 22 84 46 84 L52 84 C52 92 50 98 46 104 C62 102 76 92 84 76 C94 68 96 56 96 44 C96 22 78 4 50 4 Z" fill="url(#ttGrad)"/><path d="M50 28 C45 20 32 20 30 30 C28 40 38 48 50 58 C62 48 72 40 70 30 C68 20 55 20 50 28 Z" fill="#FFD6E8"/><path d="M80 14 L81.5 19 L86 20.5 L81.5 22 L80 27 L78.5 22 L74 20.5 L78.5 19 Z" fill="#FFD700"/></svg>
-    <div style="font-size:26px;font-weight:900;letter-spacing:1px;color:#d63384;margin-top:6px">TOP<span style="color:#1f1f1f">TALK</span></div>
-    <div style="font-size:9px;letter-spacing:3.5px;color:#7b5aa6;font-weight:800">FALL FOR HOW THEY TALK</div>
-  </div>
-  <div class="auth-title">Fall for how they <em>talk.</em></div>
-  <p class="auth-sub">TopTalk is a private site for members of TOPSHUGAR.<br>Talk first. Match second. Love later.</p>
 
+<!-- AUTH -->
+<div id="authPage" class="auth-wrap">
+  <h1>TOP<span>TALK</span></h1>
+  <p>Fall for how they talk.</p>
   <div class="auth-card">
     <div class="auth-tabs">
       <button class="auth-tab active" id="tabLoginBtn" onclick="showAuth('login')">Log In</button>
@@ -130,124 +19,70 @@
     </div>
     <div class="auth-error" id="authError"></div>
 
-    <!-- Log in form -->
     <div id="loginForm">
       <div class="auth-label">TOPSHUGAR Email</div>
       <input class="auth-input" id="loginEmail" type="email" placeholder="you@topshugar.site" />
       <div class="auth-label">Password</div>
       <input class="auth-input" id="loginPassword" type="password" placeholder="Your password" />
       <button class="btn-primary" onclick="doLogin()">Log In to TopTalk</button>
-      <p class="auth-note">Only addresses ending in @topshugar.site are accepted.<br>Other providers are not permitted.</p>
     </div>
 
-    <!-- Create account form -->
     <div id="signupForm" style="display:none">
       <div class="auth-label">First Name</div>
-      <input class="auth-input" id="suName" placeholder="e.g. Ada" maxlength="20" />
-      <div class="auth-grid">
-        <div><div class="auth-label">Age (18+)</div><input class="auth-input" id="suAge" type="number" placeholder="22" min="18" max="80" /></div>
-        <div><div class="auth-label">City</div><select class="auth-input" id="suCity"><option>Lagos</option><option>Abuja</option><option>Port Harcourt</option><option>Ibadan</option><option>Enugu</option><option>Kano</option><option>Other</option></select></div>
-      </div>
+      <input class="auth-input" id="suName" placeholder="e.g. Ada" />
+      <div class="auth-label">Age (18+)</div>
+      <input class="auth-input" id="suAge" type="number" placeholder="22" />
+      <div class="auth-label">City</div>
+      <select class="auth-input" id="suCity"><option>Lagos</option><option>Abuja</option><option>Port Harcourt</option><option>Ibadan</option><option>Enugu</option><option>Kano</option><option>Other</option></select>
       <div class="auth-label">TOPSHUGAR Email</div>
       <input class="auth-input" id="suEmail" type="email" placeholder="you@topshugar.site" />
-      <div class="auth-label">Password (min. 6 characters)</div>
+      <div class="auth-label">Password (min. 6)</div>
       <input class="auth-input" id="suPassword" type="password" placeholder="Create password" />
-      <div class="auth-label">What are you looking for?</div>
-      <select class="auth-input" id="suLooking"><option value="Looking for love">Looking for love</option><option value="Looking for friends">Looking for friends</option><option value="Just talking">Just talking</option></select>
       <button class="btn-primary" onclick="doSignup()">Create My Account</button>
-      <p class="auth-note">By creating an account you confirm you are 18 or over and will be respectful. No requests for money. No inappropriate images.</p>
     </div>
   </div>
-
-  <!-- TOPSHUGAR email acquisition -->
   <div class="domain-box">
-    <b>Do you need a TOPSHUGAR email address?</b><br>
-    TopTalk is for the TOPSHUGAR community only. If you do not have one yet, get yours from TOPSHUGAR first, then return here to log in.<br><br>
-    <a class="domain-link" href="https://topshugar.github.io/TOPSHUGAR/" target="_blank" rel="noopener">https://topshugar.github.io/TOPSHUGAR/</a>
-    <a class="btn-outline" href="https://topshugar.github.io/TOPSHUGAR/" target="_blank" rel="noopener">Get My @topshugar.site Email</a>
+    Need a @topshugar.site email? <a href="https://topshugar.github.io/TOPSHUGAR/" target="_blank">Get one here</a>
   </div>
-</div>
-<!-- Main application -->
-<div id="mainApp" style="display:none;width:100%;flex-direction:column;align-items:center">
-<div class="header">
-  <div class="logo-brand">
-    <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="ttGrad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF8AC2"/><stop offset="55%" stop-color="#C86DD7"/><stop offset="100%" stop-color="#6D4AC8"/></linearGradient></defs><path d="M50 4 C22 4 6 22 6 44 C6 66 22 84 46 84 L52 84 C52 92 50 98 46 104 C62 102 76 92 84 76 C94 68 96 56 96 44 C96 22 78 4 50 4 Z" fill="url(#ttGrad2)"/><path d="M50 28 C45 20 32 20 30 30 C28 40 38 48 50 58 C62 48 72 40 70 30 C68 20 55 20 50 28 Z" fill="#FFD6E8"/><path d="M80 14 L81.5 19 L86 20.5 L81.5 22 L80 27 L78.5 22 L74 20.5 L78.5 19 Z" fill="#FFD700"/></svg>
-    <div class="logo-text"><div class="logo-name">TOP<span>TALK</span></div><div class="logo-tag">FALL FOR HOW THEY TALK</div></div>
-  </div>
-  <!-- *** EDIT 1 - EARN BUTTON ADDED HERE *** -->
-  <div style="display:flex;gap:8px"><a href="earn.html" style="background:#d63384;color:#fff;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:700;text-decoration:none">💰 Earn</a><button class="header-btn" onclick="switchTab('matches')">Matches</button><button class="btn-ghost" onclick="doLogout()">Log Out</button></div>
 </div>
 
-<div class="wrap">
-  <div class="hero">
-    <h1>Welcome back, <em id="heroName">Top</em><br>Fall for how they <em>talk.</em></h1>
-    <p>TopTalk is a private site for singles. Post your talk. Match with people who share your vibe. Chat. Then fall.</p>
-    <div class="hero-badges"><span class="badge">Talk First</span><span class="badge">Match Second</span><span class="badge">Love Later</span></div>
-    <!-- *** EDIT 2 - EARN BUTTON ADDED HERE *** -->
-    <a href="earn.html" style="display:block;background:#d63384;color:#fff;padding:13px;border-radius:12px;font-weight:800;font-size:14px;margin-top:14px;text-decoration:none;text-align:center">💰 Earn Sats → Buy Airtime</a>
-  </div>
-  <div class="tabs">
-    <button class="tab active" id="tab-feed" onclick="switchTab('feed')">Talk<small>Feed</small></button>
-    <button class="tab" id="tab-discover" onclick="switchTab('discover')">Discover<small>Vibe Match</small></button>
-    <button class="tab" id="tab-matches" onclick="switchTab('matches')">Matches<small id="matchCount">0</small></button>
-    <button class="tab" id="tab-profile" onclick="switchTab('profile')">Me<small>Profile</small></button>
-  </div>
-  <div id="page-feed">
-    <div class="card">
-      <div class="label">Share Your Talk</div>
-      <div style="display:flex;gap:10px;margin-top:10px"><div class="avatar" id="composerAvatar">T</div><textarea id="postText" placeholder="Say something real. What is on your mind?" maxlength="280" oninput="updateChar()"></textarea></div>
-      <div class="composer-foot"><span class="char" id="charCount">280 left</span><button class="btn-post" id="postBtn" onclick="createPost()" disabled>Post Talk</button></div>
+<!-- MAIN APP -->
+<div id="mainApp" style="display:none">
+  <div class="header">
+    <b>TOP<span>TALK</span></b>
+    <div style="display:flex;gap:8px">
+      <a href="earn.html" class="earn-btn">💰 Earn</a>
+      <button class="header-btn" onclick="switchTab('matches')">Matches</button>
+      <button class="btn-ghost" onclick="doLogout()">Log Out</button>
     </div>
-    <div id="feed"></div>
   </div>
-  <div id="page-discover" style="display:none">
-    <div class="card"><div class="label">Your Vibe</div><p style="font-size:14px;line-height:1.6;margin-top:8px">Answer these three questions to be matched accurately.</p>
-      <div class="edit-grid" style="grid-template-columns:1fr">
-        <select id="vibe1"><option value="funny">Funny — I make people laugh</option><option value="serious">Serious — Deep conversations</option><option value="romantic">Romantic — Soft and sweet</option></select>
-        <select id="vibe2"><option value="text">Text — I love chatting</option><option value="call">Call — Voice notes and calls</option><option value="meet">Meet — Let us meet soon</option></select>
-        <select id="vibe3"><option value="church">Faith-first</option><option value="hustle">Hustle-first</option><option value="party">Fun-first</option></select>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Welcome back, <em id="heroName">Top</em></h1>
+      <a href="earn.html" class="earn-big">💰 Earn Sats → Buy Airtime</a>
+    </div>
+    <div class="tabs">
+      <button class="tab active" id="tab-feed" onclick="switchTab('feed')">Talk</button>
+      <button class="tab" id="tab-discover" onclick="switchTab('discover')">Discover</button>
+      <button class="tab" id="tab-matches" onclick="switchTab('matches')">Matches <span id="matchCount">0</span></button>
+      <button class="tab" id="tab-profile" onclick="switchTab('profile')">Me</button>
+    </div>
+    <div id="page-feed">
+      <div class="card">
+        <textarea id="postText" placeholder="Say something real..." maxlength="280" oninput="updateChar()"></textarea>
+        <div class="composer-foot"><span id="charCount">280 left</span><button class="btn-post" id="postBtn" onclick="createPost()" disabled>Post Talk</button></div>
       </div>
-      <button class="btn-primary" onclick="saveVibe()">Save My Vibe and Find Matches</button>
+      <div id="feed"></div>
     </div>
-    <div id="discoverList"></div>
-                                                                                                                                                             </div>
-                                                                                                                                                               <div id="page-matches" style="display:none">
-    <div class="card"><div class="label">Your Matches</div><p style="font-size:14px;color:var(--muted);margin-top:6px;line-height:1.5">When you like someone's talk, you match. Then chat privately here.</p></div>
-    <div id="matchesList" style="padding:0 12px"></div>
-    <div id="chatArea" style="display:none;padding:0 12px">
-      <div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><b id="chatWith">Chat</b><button class="btn-ghost" onclick="closeChat()">Close</button></div>
-      <div class="chat-box" id="chatBox" style="margin-top:12px"></div>
-      <div class="chat-input"><input id="chatInput" placeholder="Say something kind." onkeydown="if(event.key==='Enter') sendChat()" /><button class="btn-dark" onclick="sendChat()">Send</button></div>
-      <p style="font-size:12px;color:var(--muted);margin-top:8px">Safety: Never send money or your home address.</p>
-      </div>
-    </div>
+    <div id="page-discover" style="display:none"><div id="discoverList"></div></div>
+    <div id="page-matches" style="display:none"><div id="matchesList"></div><div id="chatArea" style="display:none"><b id="chatWith">Chat</b><div class="chat-box" id="chatBox"></div><div class="chat-input"><input id="chatInput" placeholder="Say something kind." /><button class="btn-dark" onclick="sendChat()">Send</button></div></div></div>
+    <div id="page-profile" style="display:none"><div class="card"><b id="myName">Top User</b><p id="myEmail"></p><input class="full-input" id="editBio" placeholder="Your bio" /><button class="btn-primary" onclick="saveProfile()">Save My Profile</button></div></div>
   </div>
-  <div id="page-profile" style="display:none">
-    <div class="card">
-      <div class="profile-row"><div class="avatar" id="myAvatar">T</div><div><b id="myName">Top User</b> <span id="myHandle">@topuser • 22 • Lagos</span><p class="bio" id="myBio">Funny, loyal, God-fearing.</p><div class="vibe-tags" id="myVibeTags"></div><p style="font-size:12px;color:var(--muted);margin-top:8px" id="myEmail"></p></div></div>
-      <div class="edit-grid">
-        <input id="editName" placeholder="First name" maxlength="20" />
-        <input id="editAge" type="number" placeholder="Age" min="18" max="80" />
-        <select id="editCity"><option>Lagos</option><option>Abuja</option><option>Port Harcourt</option><option>Ibadan</option><option>Enugu</option><option>Kano</option><option>Other</option></select>
-        <select id="editLooking"><option value="Looking for love">Looking for love</option><option value="Looking for friends">Looking for friends</option><option value="Just talking">Just talking</option></select>
-      </div>
-      <input class="full-input" id="editBio" placeholder="Your bio — what makes your talk special?" maxlength="90" />
-      <button class="btn-primary" onclick="saveProfile()">Save My Profile</button>
-    </div>
-    <div class="safety"><b>TopTalk Safety:</b> Be 18 or over. No inappropriate images. No requests for money. Report anyone who breaks these rules.</div>
-  </div>
-</div>
-<footer>© 2026 TopTalk by TOPSHUGAR • Talk First. Match Second. Love Later.</footer>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<script>
-  // *** YOUR ORIGINAL SCRIPT - NO CHANGES NEEDED HERE ***
-  // Keep your exact original <script> from your current file, from:
-  //   const ALLOWED_DOMAIN = "@topshugar.site";
-  // all the way to the end of sendChat() function.
-  // Paste it here, then close with:
-</script>
+<script src="auth.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
