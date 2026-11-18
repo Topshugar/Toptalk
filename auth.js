@@ -1,4 +1,4 @@
-// auth.js - Login + Create Account only
+// auth.js - Log in and Create Account only - British English
 const ALLOWED_DOMAIN = "@topshugar.site";
 const DB_USERS = "toptalk_db_users_v2";
 const DB_SESSION = "toptalk_db_session_v2";
@@ -28,15 +28,15 @@ function doSignup(){
   const password = document.getElementById("suPassword").value;
 
   if(!name) return showError("Please enter your first name.");
-  if(!age || age < 18) return showError("You must be 18 or over.");
-  if(!email.includes("@")) return showError("Enter a valid email.");
-  if(!email.endsWith(ALLOWED_DOMAIN)) return showError("Only @topshugar.site emails allowed.");
+  if(!age || age < 18) return showError("You must be 18 or over to join TopTalk.");
+  if(!email.includes("@")) return showError("Please enter a valid email address.");
+  if(!email.endsWith(ALLOWED_DOMAIN)) return showError("Only @topshugar.site email addresses are accepted. Please obtain one from TOPSHUGAR.site.");
   if(!password || password.length < 6) return showError("Password must be at least 6 characters.");
 
   const users = getUsers();
-  if(users.find(u=>u.email===email)){ showError("This email already has an account. Please log in."); showAuth("login"); return; }
+  if(users.find(u=>u.email===email)){ showError("This email address already has an account. Please log in."); showAuth("login"); return; }
 
-  const user = { id: Date.now(), name, age, city, email, pass: hashPass(password), bio:"Funny, loyal, God-fearing.", handle: name.toLowerCase().replace(/[^a-z0-9]/g,"")||"topuser", created_at: new Date().toISOString() };
+  const user = { id: Date.now(), name, age, city, email, pass: hashPass(password), bio:"Funny, loyal, God-fearing. I fall for good conversation.", handle: name.toLowerCase().replace(/[^a-z0-9]/g,"")||"topuser", created_at: new Date().toISOString() };
   users.push(user); saveUsers(users);
   loginUser(user);
   toast("Welcome to TopTalk, "+name);
@@ -45,10 +45,10 @@ function doSignup(){
 function doLogin(){
   const email = document.getElementById("loginEmail").value.trim().toLowerCase();
   const password = document.getElementById("loginPassword").value;
-  if(!email || !password) return showError("Enter email and password.");
-  if(!email.endsWith(ALLOWED_DOMAIN)) return showError("Only @topshugar.site emails allowed.");
+  if(!email || !password) return showError("Please enter your email address and password.");
+  if(!email.endsWith(ALLOWED_DOMAIN)) return showError("Only @topshugar.site email addresses are accepted.");
   const user = getUsers().find(u=>u.email===email && u.pass===hashPass(password));
-  if(!user) return showError("Incorrect email or password.");
+  if(!user) return showError("Incorrect email address or password. If you are new, please create an account.");
   loginUser(user);
   toast("Welcome back, "+user.name);
 }
@@ -71,7 +71,6 @@ function doLogout(){
   showAuth("login");
 }
 
-// Auto-login
 (function(){
   const s = JSON.parse(localStorage.getItem(DB_SESSION)||"null");
   if(s){ const u = getUsers().find(x=>x.email===s.email); if(u) loginUser(u); }
