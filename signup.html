@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TopTalk - Create Account</title>
+<style>
+body{font-family:Arial;background:#fff7fb;padding:20px}
+.card{background:#fff;padding:20px;border-radius:16px;max-width:400px;margin:auto}
+input{width:100%;padding:13px;margin:8px 0;border:1px solid #ddd;border-radius:10px;font-size:16px;box-sizing:border-box}
+button{width:100%;padding:14px;background:#d63384;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:bold}
+#error{color:red;font-size:14px;display:none}
+</style>
+</head>
+<body>
+<div class="card">
+<h2>TopTalk - Create Account</h2>
+<p>Only @topshugar.site emails allowed</p>
+<p id="error"></p>
+<input id="name" placeholder="First Name">
+<input id="email" placeholder="you@topshugar.site">
+<input id="pass" type="password" placeholder="Password (6+)">
+<button onclick="signup()">CREATE MY ACCOUNT</button>
+<p id="done"></p>
+</div>
+
+<script>
+function signup(){
+  var name = document.getElementById('name').value.trim();
+  var email = document.getElementById('email').value.trim().toLowerCase();
+  var pass = document.getElementById('pass').value;
+  var err = document.getElementById('error');
+  err.style.display = 'none';
+
+  if(!name){ err.textContent='Enter your name'; err.style.display='block'; return; }
+  if(!email.endsWith('@topshugar.site')){ err.textContent='Use @topshugar.site email only'; err.style.display='block'; return; }
+  if(pass.length < 6){ err.textContent='Password must be 6+'; err.style.display='block'; return; }
+
+  // Save
+  var users = JSON.parse(localStorage.getItem('tt_users') || '[]');
+  if(users.find(u => u.email === email)){
+    err.textContent='Account already exists, please Log In'; err.style.display='block'; return;
+  }
+  users.push({name:name, email:email, pass:pass});
+  localStorage.setItem('tt_users', JSON.stringify(users));
+  localStorage.setItem('tt_me', email);
+  document.getElementById('done').textContent = 'Welcome '+name+'! Account created. Now go to login.';
+  alert('Welcome '+name+'! Account created!');
+}
+</script>
+</body>
+</html>
