@@ -8,7 +8,6 @@
 </head>
 <body>
 
-<!-- AUTH -->
 <div id="authPage" class="auth-wrap">
   <h1>TOP<span>TALK</span></h1>
   <p>Fall for how they talk.</p>
@@ -25,6 +24,7 @@
       <div class="auth-label">Password</div>
       <input class="auth-input" id="loginPassword" type="password" placeholder="Your password" />
       <button class="btn-primary" onclick="doLogin()">Log In to TopTalk</button>
+      <p class="auth-note">Only addresses ending in @topshugar.site are accepted.<br>Other providers are not permitted.</p>
     </div>
 
     <div id="signupForm" style="display:none">
@@ -36,9 +36,12 @@
       <select class="auth-input" id="suCity"><option>Lagos</option><option>Abuja</option><option>Port Harcourt</option><option>Ibadan</option><option>Enugu</option><option>Kano</option><option>Other</option></select>
       <div class="auth-label">TOPSHUGAR Email</div>
       <input class="auth-input" id="suEmail" type="email" placeholder="you@topshugar.site" />
-      <div class="auth-label">Password (min. 6)</div>
+      <div class="auth-label">Password (min. 6 characters)</div>
       <input class="auth-input" id="suPassword" type="password" placeholder="Create password" />
+      <div class="auth-label">What are you looking for?</div>
+      <select class="auth-input" id="suLooking"><option value="Looking for love">Looking for love</option><option value="Looking for friends">Looking for friends</option><option value="Just talking">Just talking</option></select>
       <button class="btn-primary" onclick="doSignup()">Create My Account</button>
+      <p class="auth-note">By creating an account you confirm you are 18 or over and will be respectful. No requests for money. No inappropriate images.</p>
     </div>
   </div>
   <div class="domain-box">
@@ -46,7 +49,6 @@
   </div>
 </div>
 
-<!-- MAIN APP -->
 <div id="mainApp" style="display:none">
   <div class="header">
     <b>TOP<span>TALK</span></b>
@@ -59,29 +61,31 @@
   <div class="wrap">
     <div class="hero">
       <h1>Welcome back, <em id="heroName">Top</em></h1>
+      <p>TopTalk is a private site for singles. Post your talk. Match with people who share your vibe. Chat. Then fall.</p>
       <a href="earn.html" class="earn-big">💰 Earn Sats → Buy Airtime</a>
     </div>
     <div class="tabs">
-      <button class="tab active" id="tab-feed" onclick="switchTab('feed')">Talk</button>
-      <button class="tab" id="tab-discover" onclick="switchTab('discover')">Discover</button>
-      <button class="tab" id="tab-matches" onclick="switchTab('matches')">Matches <span id="matchCount">0</span></button>
-      <button class="tab" id="tab-profile" onclick="switchTab('profile')">Me</button>
+      <button class="tab active" id="tab-feed" onclick="switchTab('feed')">Talk<small>Feed</small></button>
+      <button class="tab" id="tab-discover" onclick="switchTab('discover')">Discover<small>Vibe Match</small></button>
+      <button class="tab" id="tab-matches" onclick="switchTab('matches')">Matches<small id="matchCount">0</small></button>
+      <button class="tab" id="tab-profile" onclick="switchTab('profile')">Me<small>Profile</small></button>
     </div>
     <div id="page-feed">
       <div class="card">
-        <textarea id="postText" placeholder="Say something real..." maxlength="280" oninput="updateChar()"></textarea>
+        <div class="label">Share Your Talk</div>
+        <textarea id="postText" placeholder="Say something real. What is on your mind?" maxlength="280" oninput="updateChar()"></textarea>
         <div class="composer-foot"><span id="charCount">280 left</span><button class="btn-post" id="postBtn" onclick="createPost()" disabled>Post Talk</button></div>
       </div>
       <div id="feed"></div>
     </div>
-    <div id="page-discover" style="display:none"><div id="discoverList"></div></div>
-    <div id="page-matches" style="display:none"><div id="matchesList"></div><div id="chatArea" style="display:none"><b id="chatWith">Chat</b><div class="chat-box" id="chatBox"></div><div class="chat-input"><input id="chatInput" placeholder="Say something kind." /><button class="btn-dark" onclick="sendChat()">Send</button></div></div></div>
-    <div id="page-profile" style="display:none"><div class="card"><b id="myName">Top User</b><p id="myEmail"></p><input class="full-input" id="editBio" placeholder="Your bio" /><button class="btn-primary" onclick="saveProfile()">Save My Profile</button></div></div>
+    <div id="page-discover" style="display:none"><div class="card"><div class="label">Your Vibe</div><p>Answer these three questions to be matched accurately.</p><div id="discoverList"></div></div></div>
+    <div id="page-matches" style="display:none"><div id="matchesList"></div><div id="chatArea" style="display:none"><b id="chatWith">Chat</b><div class="chat-box" id="chatBox"></div><div class="chat-input"><input id="chatInput" placeholder="Say something kind." /><button class="btn-dark" onclick="sendChat()">Send</button></div><p>Safety: Never send money or your home address.</p></div></div>
+    <div id="page-profile" style="display:none"><div class="card"><b id="myName">Top User</b><p id="myEmail"></p><p id="myBio"></p><input class="full-input" id="editBio" placeholder="Your bio — what makes your talk special?" /><button class="btn-primary" onclick="saveProfile()">Save My Profile</button></div><div class="safety"><b>TopTalk Safety:</b> Be 18 or over. No inappropriate images. No requests for money. Report anyone who breaks these rules.</div></div>
   </div>
+  <footer>© 2026 TopTalk by TOPSHUGAR • Talk First. Match Second. Love Later.</footer>
 </div>
 
 <div class="toast" id="toast"></div>
-
 <script src="auth.js"></script>
 <script src="app.js"></script>
 </body>
